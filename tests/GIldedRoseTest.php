@@ -61,94 +61,94 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(4, $item->sellIn);
     }
 
-    /*context('Brie Items', function () {
+    public function test_updates_brie_items_before_sell_date_with_maximum_quality()
+    {
+        $item = GildedRose::of('Aged Brie', 50, 5);
 
-        it ('updates Brie items before the sell date with maximum quality', function () {
-            $item = GildedRose::of('Aged Brie', 50, 5);
+        $item->tick();
 
-            $item->tick();
+        $this->assertEquals(50, $item->quality);
+        $this->assertEquals(4, $item->sellIn);
+    }
 
-            expect($item->quality)->toBe(50);
-            expect($item->sellIn)->toBe(4);
-        });
+    public function test_updates_brie_items_on_sell_date()
+    {
+        $item = GildedRose::of('Aged Brie', 10, 0);
 
-        it ('updates Brie items on the sell date', function () {
-            $item = GildedRose::of('Aged Brie', 10, 0);
+        $item->tick();
 
-            $item->tick();
+        $this->assertEquals(12, $item->quality);
+        $this->assertEquals(-1, $item->sellIn);
+    }
 
-            expect($item->quality)->toBe(12);
-            expect($item->sellIn)->toBe(-1);
-        });
+    public function test_updates_brie_items_on_sell_date_near_maximum_quality()
+    {
+        $item = GildedRose::of('Aged Brie', 49, 0);
 
-        it ('updates Brie items on the sell date, near maximum quality', function () {
-            $item = GildedRose::of('Aged Brie', 49, 0);
+        $item->tick();
 
-            $item->tick();
+        $this->assertEquals(50, $item->quality);
+        $this->assertEquals(-1, $item->sellIn);
+    }
 
-            expect($item->quality)->toBe(50);
-            expect($item->sellIn)->toBe(-1);
-        });
+    public function test_updates_brie_items_on_sell_date_with_maximum_quality()
+    {
+        $item = GildedRose::of('Aged Brie', 50, 0);
 
-        it ('updates Brie items on the sell date with maximum quality', function () {
-            $item = GildedRose::of('Aged Brie', 50, 0);
+        $item->tick();
 
-            $item->tick();
+        $this->assertEquals(50, $item->quality);
+        $this->assertEquals(-1, $item->sellIn);
+    }
 
-            expect($item->quality)->toBe(50);
-            expect($item->sellIn)->toBe(-1);
-        });
+    public function test_updates_brie_items_after_sell_date()
+    {
+        $item = GildedRose::of('Aged Brie', 10, -10);
 
-        it ('updates Brie items after the sell date', function () {
-            $item = GildedRose::of('Aged Brie', 10, -10);
+        $item->tick();
 
-            $item->tick();
+        $this->assertEquals(12, $item->quality);
+        $this->assertEquals(-11, $item->sellIn);
+    }
 
-            expect($item->quality)->toBe(12);
-            expect($item->sellIn)->toBe(-11);
-        });
+    public function test_updates_brie_items_after_sell_date_with_maximum_quality()
+    {
+        $item = GildedRose::of('Aged Brie', 50, -10);
 
-         it ('updates Briem items after the sell date with maximum quality', function () {
-            $item = GildedRose::of('Aged Brie', 50, -10);
+        $item->tick();
 
-            $item->tick();
+        $this->assertEquals(50, $item->quality);
+        $this->assertEquals(-11, $item->sellIn);
+    }
 
-            expect($item->quality)->toBe(50);
-            expect($item->sellIn)->toBe(-11);
-        });
+    public function test_updates_sulfuras_items_before_sell_date()
+    {
+        $item = GildedRose::of('Sulfuras, Hand of Ragnaros', 10, 5);
 
-    });
+        $item->tick();
 
+        $this->assertEquals(10, $item->quality);
+        $this->assertEquals(5, $item->sellIn);
+    }
 
-    context('Sulfuras Items', function () {
+    public function test_updates_sulfuras_items_on_sell_date()
+    {
+        $item = GildedRose::of('Sulfuras, Hand of Ragnaros', 10, 0);
 
-        it ('updates Sulfuras items before the sell date', function () {
-            $item = GildedRose::of('Sulfuras, Hand of Ragnaros', 10, 5);
+        $item->tick();
 
-            $item->tick();
+        $this->assertEquals(10, $item->quality);
+        $this->assertEquals(0, $item->sellIn);
+    }
 
-            expect($item->quality)->toBe(10);
-            expect($item->sellIn)->toBe(5);
-        });
+    public function test_updates_sulfuras_items_after_sell_date()
+    {
+        $item = GildedRose::of('Sulfuras, Hand of Ragnaros', 10, -1);
 
-        it ('updates Sulfuras items on the sell date', function () {
-            $item = GildedRose::of('Sulfuras, Hand of Ragnaros', 10, 5);
+        $item->tick();
 
-            $item->tick();
-
-            expect($item->quality)->toBe(10);
-            expect($item->sellIn)->toBe(5);
-        });
-
-        it ('updates Sulfuras items after the sell date', function () {
-            $item = GildedRose::of('Sulfuras, Hand of Ragnaros', 10, -1);
-
-            $item->tick();
-
-            expect($item->quality)->toBe(10);
-            expect($item->sellIn)->toBe(-1);
-        });
-
-    });*/
+        $this->assertEquals(10, $item->quality);
+        $this->assertEquals(-1, $item->sellIn);
+    }
 
 }
