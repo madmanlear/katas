@@ -1,5 +1,4 @@
 var gulp = require('gulp'),
-    notify = require('gulp-notify'),
     phpunit = require('gulp-phpunit'),
     exec = require('child_process').exec;
 
