@@ -1,7 +1,6 @@
 {
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-notify": "^2.2.0",
     "gulp-phpunit": "^0.14.0"
   }
 }
