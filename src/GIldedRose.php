@@ -4,23 +4,21 @@ namespace Kata;
 
 class GildedRose
 {
-    public $name;
 
-    public $quality;
-
-    public $sellIn;
-
-    public function __construct($name, $quality, $sellIn)
-    {
-        $this->name = $name;
-        $this->quality = $quality;
-        $this->sellIn = $sellIn;
-    }
+    protected static $lookup = [
+        'normal' => Normal::class,
+        'Backstage passes to a TAFKAL80ETC concert' => Backstage::class,
+        'Aged Brie' => Brie::class,
+    ];
 
     public static function of($name, $quality, $sellIn) {
-        return new static($name, $quality, $sellIn);
+        $class = isset(static::$lookup[$name])
+            ? static::$lookup[$name]
+            : Item::class;
+        return new $class($quality, $sellIn);
     }
 
+    //Old implementation
     public function tick()
     {
         if ($this->name != 'Aged Brie' and $this->name != 'Backstage passes to a TAFKAL80ETC concert') {

@@ -2,7 +2,7 @@
 
 use Kata\GildedRose;
 
-class GildedRoseTest extends PHPUnit_Framework_TestCase
+class GIldedRoseTest extends PHPUnit_Framework_TestCase
 {
     
     public function test_class_exists()
@@ -151,4 +151,93 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(-1, $item->sellIn);
     }
 
+    public function test_backstage_pass_items_long_before_sell_date()
+    {
+        $item = GildedRose::of('Backstage passes to a TAFKAL80ETC concert', 10, 11);
+
+        $item->tick();
+
+        $this->assertEquals(11, $item->quality);
+        $this->assertEquals(10, $item->sellIn);
+    }
+
+    public function test_updates_backstage_pass_items_close_to_sell_date()
+    {
+        $item = GildedRose::of('Backstage passes to a TAFKAL80ETC concert', 10, 10);
+
+        $item->tick();
+
+        $this->assertEquals(12, $item->quality);
+        $this->assertEquals(9, $item->sellIn);
+    }
+
+    public function test_updates_backstage_pass_items_close_to_sell_date_at_max_quality()
+    {
+        $item = GildedRose::of('Backstage passes to a TAFKAL80ETC concert', 50, 10);
+        
+        $item->tick();
+
+        $this->assertEquals(50, $item->quality);
+        $this->assertEquals(9, $item->sellIn);
+    }
+
+    public function test_updates_backstage_pass_items_very_close_to_sell_date()
+    {
+        $item = GildedRose::of('Backstage passes to a TAFKAL80ETC concert', 10, 5);
+        
+        $item->tick();
+
+        $this->assertEquals(13, $item->quality);
+        $this->assertEquals(4, $item->sellIn);
+    }
+
+    public function test_updates_backstage_pass_items_very_close_to_sell_date_at_max_quality()
+    {
+        $item = GildedRose::of('Backstage passes to a TAFKAL80ETC concert', 50, 5);
+        
+        $item->tick();
+
+        $this->assertEquals(50, $item->quality);
+        $this->assertEquals(4, $item->sellIn);
+    }
+
+    public function test_updates_backstage_pass_items_with_one_day_to_sell()
+    {
+        $item = GildedRose::of('Backstage passes to a TAFKAL80ETC concert', 10, 1);
+        
+        $item->tick();
+
+        $this->assertEquals(13, $item->quality);
+        $this->assertEquals(0, $item->sellIn);
+    }
+
+    public function test_updates_backstage_pass_items_with_one_day_to_sell_at_maximum_quality()
+    {
+        $item = GildedRose::of('Backstage passes to a TAFKAL80ETC concert', 50, 1);
+        
+        $item->tick();
+
+        $this->assertEquals(50, $item->quality);
+        $this->assertEquals(0, $item->sellIn);
+    }
+
+    public function test_updates_backstage_pass_items_on_sell_date()
+    {
+        $item = GildedRose::of('Backstage passes to a TAFKAL80ETC concert', 10, 0);
+        
+        $item->tick();
+
+        $this->assertEquals(0, $item->quality);
+        $this->assertEquals(-1, $item->sellIn);
+    }
+
+    public function test_updates_backstage_pass_items_after_sell_date()
+    {
+        $item = GildedRose::of('Backstage passes to a TAFKAL80ETC concert', 10, -1);
+        
+        $item->tick();
+
+        $this->assertEquals(0, $item->quality);
+        $this->assertEquals(-2, $item->sellIn);
+    }
 }
