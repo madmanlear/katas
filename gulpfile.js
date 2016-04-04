@@ -1,11 +1,11 @@
 var gulp = require('gulp'),
-    sys = require('sys'),
+    notify = require('gulp-notify'),
+    phpunit = require('gulp-phpunit'),
     exec = require('child_process').exec;
 
 gulp.task('phpunit', function() {
-    exec('phpunit', function(error, stdout) {
-        sys.puts(stdout);
-    });
+    gulp.src('')
+        .pipe(phpunit());
 });
 
 gulp.task('default', function() {

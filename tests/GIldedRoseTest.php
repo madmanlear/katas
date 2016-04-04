@@ -51,16 +51,17 @@ class GildedRoseTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(4, $item->sellIn);
     }
 
+    public function test_updates_brie_items_before_sell_date()
+    {
+        $item = GildedRose::of('Aged Brie', 10, 5);
+
+        $item->tick();
+
+        $this->assertEquals(11, $item->quality);
+        $this->assertEquals(4, $item->sellIn);
+    }
+
     /*context('Brie Items', function () {
-
-        it ('updates Brie items before the sell date', function () {
-            $item = GildedRose::of('Aged Brie', 10, 5);
-
-            $item->tick();
-
-            expect($item->quality)->toBe(11);
-            expect($item->sellIn)->toBe(4);
-        });
 
         it ('updates Brie items before the sell date with maximum quality', function () {
             $item = GildedRose::of('Aged Brie', 50, 5);
